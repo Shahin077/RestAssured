@@ -9,7 +9,7 @@ public class SpartanRestUtils {
 
     public static void deleteSpartanById(int spartanId){
         given().pathParam("id" , spartanId)
-                .when().delete(baseUrl + "/{id}")
+                .when().delete(baseUrl + "/spartans/{id}")
                 .then().log().all();
     }
 
