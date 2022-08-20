@@ -3,6 +3,10 @@ package com.cydeo.utils;
 import com.cydeo.pojo.Spartan;
 import com.github.javafaker.Faker;
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
+
+import java.util.Map;
 
 import static io.restassured.RestAssured.*;
 
@@ -43,4 +47,17 @@ public class SpartanRestUtils {
 
     }
 
+    /**
+     * Method accepts spartanId and a get returns request
+     * @param spartanId
+     * @return is Map object containing response json data
+     */
+
+    public static Map<String, Object> getSpartan(int spartanId) {
+        Response response = given().accept(ContentType.JSON)
+                .and().pathParam("id" ,spartanId)
+                .when().get(baseUrl+"/spartan/{id}");
+        Map<String , Object> spartanMap = response.as(Map.class);
+        return spartanMap;
+    }
 }
