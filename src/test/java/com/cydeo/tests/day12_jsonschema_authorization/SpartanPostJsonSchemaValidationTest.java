@@ -48,6 +48,10 @@ public class SpartanPostJsonSchemaValidationTest extends SpartanTestBase{
                 .and().log().all()
                 .and().extract().jsonPath().getInt("data.id");
 
+        //.and().extract().response(); //will return Response object
+        //.and().extract().jsonPath(); //will return JsonPath object
+
+
         SpartanRestUtils.deleteSpartanById(newSpartanID);
 
 
