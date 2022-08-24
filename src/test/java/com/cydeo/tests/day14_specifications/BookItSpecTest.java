@@ -1,7 +1,12 @@
 package com.cydeo.tests.day14_specifications;
 
 import com.cydeo.utils.BookItAPITestBase;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import static io.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.*;
+
+import java.util.Map;
 
 public class BookItSpecTest extends BookItAPITestBase {
     /**
@@ -14,6 +19,26 @@ public class BookItSpecTest extends BookItAPITestBase {
      */
     @Test
     public void teacherInfoTest() {
+
+        Map<String, ?> teacherMap = given().spec(teacherReqSpec)
+                .when().get("/api/teachers/me")
+                .then().spec(responseSpec)
+                .and().extract().body().as(Map.class);
+
+        Assertions.assertEquals(1816, teacherMap.get("id") );
+        Assertions.assertEquals("Barbabas", teacherMap.get("firstName") );
+        Assertions.assertEquals("Lyst", teacherMap.get("lastName") );
+        Assertions.assertEquals("teacher", teacherMap.get("role") );
+
+        //by using hamcreset matchers
+        given().spec(teacherReqSpec)
+                .when().get("/api/teachers/me")
+                .then().spec(responseSpec)
+                .and().body("id",       is(1816),
+                        "firstName",is("Barbabas"),
+                        "lastName" , is("Lyst"),
+                        "role",      is("teacher"));
+
 
     }
 }
