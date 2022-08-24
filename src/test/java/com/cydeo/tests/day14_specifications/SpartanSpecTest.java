@@ -24,7 +24,7 @@ public class SpartanSpecTest extends SpartanSecureTestBase {
     public void allSpartansTest() {
                  given().spec(requestSpec)
                 .when().get("/spartans")
-                .then().log().all();
+                .then().spec(responseSpec).log().all();
 
 
     }
@@ -34,7 +34,7 @@ public class SpartanSpecTest extends SpartanSecureTestBase {
                  given().spec(requestSpec)
                 .and().pathParam("id", 15)
                 .when().get("/spartans/{id}")
-                .then().log().all();
+                .then().spec(responseSpec).log().all();
 
     }
 }
